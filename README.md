@@ -41,4 +41,9 @@ It will be useful to having R, RStudio, and git installed and ready to go before
       If it gives you an unknown command error, follow instructions to install:  
       1. Go to: https://git-scm.com/downloads and select "Windows". 
       2. Open the downloaded exe file and follow instructions for installing.  
-  
+
+### Ordering a Textbook
+
+We will be using _The Book of R_ by Tilman Davies (ISBN-13: 978-1-59327-651-5). You may be able to find an ecopy of this book, who knows. If you would like to order a physical copy, here is a good deal. Between now and Oct. 15th 2021, you can use the code __ACDCPSC292__ to receive 30% off if you order directly from No Starch Press: https://nostarch.com/bookofr
+
+
