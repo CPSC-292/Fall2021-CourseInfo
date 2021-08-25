@@ -40,3 +40,10 @@ vignettes/*.pdf
 
 # Other files
 *.DS_Store
+*.png
+*.mp4
+*.key
+*.tex
+*.jpg
+*.JPG
+*.gif
