@@ -48,3 +48,7 @@ vignettes/*.pdf
 *.JPG
 *.jpeg
 *.gif
+*.out
+*.log
+*.aux
+*.gz
