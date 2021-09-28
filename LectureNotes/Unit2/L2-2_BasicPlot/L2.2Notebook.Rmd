@@ -46,7 +46,7 @@ For more tips, use this handy [Cheat Sheet](https://www.rstudio.com/wp-content/u
 
 Inserting code must take place using three open-apostrophes in a row (the open apostrophe is to the left of the number 1 key, right under the tilde). To end the code chunk, use three more open-apostrophes. 
 Begin a code chunk: ` ```{r}`
-End a code chunk: ` ````
+End a code chunk: ` ``` `
 
 Example: 
 ```{r}
@@ -131,6 +131,7 @@ plot(dist ~ speed, data = cars,
 Axis limits: 
 
 ```{r, include=TRUE}
+
 plot(dist ~ speed, data = cars,
      xlab = "Car speed",
      ylab  = "Stopping distance",
@@ -156,11 +157,13 @@ plot(Petal.Length ~ Petal.Width, data = iris,
 Add to existing plots: 
 
 ```{r, include=TRUE}
+library(viridis)
+chick.cols <- viridis(10)
 chicks.diet1 <- subset(ChickWeight, ChickWeight$Diet==1)
-plot(x = chicks.diet1$Time, y = chicks.diet1$weight, col=chicks.diet1$Chick, pch=19)
+plot(x = chicks.diet1$Time, y = chicks.diet1$weight, col=chick.cols[chicks.diet1$Chick], pch=19)
 
-chicks.diet2 <- subset(ChickWeight, ChickWeight$Diet==2)
-points(x = chicks.diet2$Time, y = chicks.diet2$weight, col=chicks.diet2$Chick, pch = 8)
+#chicks.diet2 <- subset(ChickWeight, ChickWeight$Diet==2)
+#points(x = chicks.diet2$Time, y = chicks.diet2$weight, col=chicks.diet2$Chick, pch = 8)
 
 ```
 
