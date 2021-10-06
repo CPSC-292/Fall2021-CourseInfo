@@ -1,0 +1,121 @@
+---
+title: "skills check 2.1"
+author: "cami"
+date: "10/5/2021"
+output: html_document
+---
+
+Before going into graphing, we first have to ask "What is Continuous Data?"
+Continuous data is quantitative and can take any value
+
+
+#Geom_point: What is it and what it does#
+-Scatter Plot
+-Control point size, shape, color, and fill
+-Makes it easy to visualize and chart data within the base we are already using
+displaying the relationship between two continuous variables
+-Able to add bars and other factor for teachers.
+
+#Start with basics:
+A <- ggplot(data)
+
+Choose type of plot wanted
+B <-A + C <- geom_point (D)
+
+To add points together add on to equation a second one with + in between the two 
+chunk of instructions
+E: B <-A + C <- geom_point (D)
+
+To add points together add on to equation a second one with + in between the 
+two chunk of instructions
+
+Add “aesthetics” (AES) which allow you to format your graph using x,y, color, 
+fill, group, shape, size etc
+
+To add more to the aesthetics of the plot, after “blue” inserts a coma and the 
+next command
+….= blue, size = 3)
+
+#Working example of geom_point
+```{r}
+ggplot(chickwts, aes(weight, feed)) + geom_point(colour = "blue")
+```
+#Geom_line: What it is and What it does
+Overall, geom_line () serves as a way to make a line graph
+It uses the points provided by geom_point and connects them in order of the 
+variable on the x axis.
+It also highlights exactly when changes occur in the dataset. 
+
+#parts to incorporate in geom_line
+If you want to make a line chart, you need to use geom_line to do it.
+The ggplot() function indicates that we're going to plot something
+The code data = indicates that we'll be plotting data that's contained within a 
+dataframe.
+
+After the data parameter, the aes() function is specifying our variable mappings. 
+Specifically, assigning what is the x axis and what is the y axis
+Finally, we're using geom_line() to indicate that we want to draw line geoms. 
+
+You can also change the appearance of the lines by specifying the color and type
+ex. geom_line(color="blue", linetype=2)
+
+Here are 4 line type variations of the same graph
+```{r}
+a <- c(1,2,4,5,3)
+b <- c(5,4,2,1,7)
+qplot( a, b, geom="blank") + geom_point() + geom_line(color="blue", linetype=2)
+qplot( a, b, geom="blank") + geom_point() + geom_line(color="blue", linetype=4)
+qplot( a, b, geom="blank") + geom_point() + geom_line(color="blue", linetype=3)
+qplot( a, b, geom="blank") + geom_point() + geom_line(color="blue", linetype=1)
+```
+#Let’s Look at a Coded Example:
+I used the iris data set because it has continuous data types
+We will be plotting the Sepal.Width against Sepal.Length
+We also want include a factor to show the species 
+
+Heres an outline of the example:
+1. The ggplot() function indicates that we're going to plot something.
+2. We put the dataset first in the parenthesis to indicate that we'll be 
+plotting data that's contained within the iris dataframe. 
+3. After the data parameter, the aes() function is specifying our variable 
+mappings. Specifically, what we want the x-axis and y-axis to be 
+4. we want to include a factor that shows the species by color. We do this by 
+saying "color = species"
+
+I also included geom_point to start the data off as a scatter plot
+Finally, We're using geom_line() to indicate that we want to draw line geoms. 
+
+
+Your code should look like this
+```{r setup, include=TRUE}
+data("iris")
+ggplot(iris, aes( x = Sepal.Length, y = Sepal.Width, color = Species)) + geom_point() + geom_line()
+```
+As shown, there are 3 separate lines indicated by the species color. The 
+geom_points are connected by lines and we are able to see the relationship
+between Sepal.Length and Sepal.Width. 
+
+#Geom_qq_line (Quantile to Quantile): What it is & what it does
+
+It computes the slope and intercept of the line connecting the points at 
+specified quartiles of the theoretical and sample distributions.
+It also helps us determine whether a range of numbers has a certain 
+distribution: the closer the data points are to being a straight line, the 
+closer the data is to the distribution. 
+
+
+#Geom_qq_line: How to use
+In our example, mtcars is our data
+for aesthetics, aes is written as aes (sample = mpg, colour = factor, (cyl))
+stat_qq () → produces a quantile-quantile plot
+stat_qq_line () → compute slope & intercept connecting the points
+overall it should look like this
+ggplot (mtcars, aes (sample = mpg, colour = factor(cyl))) + stat_qq () + 
+stat_qq_line ()
+
+Here is a working example:
+```{r}
+ggplot(mtcars, aes(sample = mpg, colour = factor(cyl))) +
+  stat_qq() +
+  stat_qq_line()
+```
