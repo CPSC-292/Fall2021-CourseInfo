@@ -1,0 +1,112 @@
+---
+title: "Group 2"
+author: "Gabriella Dauber"
+date: "10/5/2021"
+output: html_document
+group: "Group 2 - Continuous y and Categorical x Data" 
+---
+
+# Gabriella Dauber's Section // Bar Plot
+
+# Bar Plot: Method to graphically compare the numbers/frequencies of a category or characteristic with another
+#Bars break down categorical data by group
+
+# a) Stacked Bar Plot: The subgroups are displayed on top of each other, not beside. 
+
+# b) Grouped Bar Plot: Displays a numeric value for a set of entities split in groups or subgroups. 
+
+# c) Mean Bar Plot: Displays the average of the numerical data for a set of entities. 
+
+# d) Width Change Within Bar Plot: Allows the user to control the bar width with the function geom_bar(). 
+
+# e) Horizontal Bar Plot: The vertical axis represents the categories being compared and the horizontal axis represents a value. 
+
+```{r}
+data(CO2)
+library(ggplot2)
+ggplot(CO2, aes(x=Type, y=uptake, fill=Treatment)) + geom_bar(stat="identity") + xlab("City") + ylab("Uptake of CO2")
+
+```
+
+```{r}
+data(CO2)
+library(ggplot2)
+ggplot(CO2, aes(x=Type, y=uptake, fill=Treatment)) + geom_bar(position="dodge", stat="identity") + xlab("City") + ylab("Uptake of CO2")
+
+```
+
+```{r}
+data(CO2)
+library(ggplot2)
+ggplot(CO2, aes(x=Type, y=uptake, fill=Treatment)) + geom_bar(position="dodge",stat="summary",fun.y="mean") + xlab("City") + ylab("Uptake of CO2")
+
+```
+
+```{r}
+data(CO2)
+library(ggplot2)
+ggplot(CO2, aes(x=Type, y=uptake, fill=Treatment)) + geom_bar(position="dodge", stat="identity", width=0.4) + xlab("City") + ylab("Uptake of CO2")
+
+```
+
+```{r}
+data(CO2)
+library(ggplot2)
+ggplot(CO2, aes(x=Type, y=uptake, fill=Treatment)) + geom_bar(position="dodge", stat="identity", width=0.4) + xlab("City") + ylab("Uptake of CO2") + coord_flip()
+
+```
+
+# Isabelle DuMontier's Section // Box Plots 
+
+# Box Plots: Method for graphically depicting groups of numerical data through their quartiles
+# They also may have lines extending from the boxes indicating variability outside the upper and lower quartiles
+
+
+```{r}
+data(CO2)
+library(ggplot2)
+ggplot(CO2, aes(x=Type, y=uptake)) + geom_boxplot() + xlab("City")+ ylab("Uptake of CO2")
+
+```
+
+```{r}
+data(CO2)
+library(ggplot2)
+ggplot(CO2, aes(x=factor(conc), fill=Treatment, y=uptake)) + geom_boxplot() + xlab("Concentration") + ylab("Uptake of CO2") 
+```
+
+```{r}
+data(CO2)
+library(ggplot2)
+ggplot(CO2, aes(x=Type, fill=Treatment, y=uptake)) + geom_boxplot() + xlab("City") + ylab("Uptake of CO2")
+```
+
+```{r}
+data(CO2)
+library(ggplot2)
+ggplot(CO2, aes(x=Type, fill=Treatment, y=uptake, color=factor(conc))) + geom_boxplot() + xlab("City") + ylab("Uptake of CO2")
+```
+
+# Alan Lu's Section // Violin Plots 
+
+# Shows distribution of numeric data for multiple groups using density curves
+# Usually these graphs are accompanied by a different chart type, like a box plot
+
+```{r}
+library(ggplot2)
+ggplot(CO2, aes(x= Type, y= uptake, fill = Treatment)) + geom_violin() + xlab("City") + ylab("Uptake of CO2")
+
+```
+
+```{r}
+library(ggplot2)
+ggplot(CO2, aes(x= Type, y= uptake, fill = Treatment)) + geom_violin() + xlab("City") + ylab("Uptake of CO2") + coord_flip()
+
+```
+
+```{r}
+library(ggplot2)
+ggplot(CO2, aes(x= Type, y= uptake, fill = Treatment)) + geom_violin(trim = FALSE) + xlab("City") + ylab("Uptake of CO2")
+
+```
+
