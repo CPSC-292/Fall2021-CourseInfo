@@ -1,0 +1,49 @@
+---
+title: "Skill check 2.1.Rmd"
+authors: Lou, Hannah, Gabby, Caroline
+date: 10/6/21
+output: html_document
+---
+
+
+
+```{r setup, include=TRUE}
+#Histogram
+library(ggplot2)
+data(diamonds)
+ggplot(diamonds, aes(x=carat)) +geom_histogram(binwidth = 1)
+
+
+
+```
+```{r,include=TRUE}
+#Dot plot
+library(ggplot2)
+data("diamonds")
+ggplot(diamonds, aes(x=carat)) +geom_dotplot(binwidth =  0.1)
+
+
+```
+
+
+
+```{r, include=TRUE}
+#Density
+library(ggplot2)
+data("diamonds")
+ggplot(diamonds, aes(x=carat)) + geom_density(color="dark blue", fill= "light blue")
+
+```
+
+
+```{r cars}
+summary(cars)
+```
+
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

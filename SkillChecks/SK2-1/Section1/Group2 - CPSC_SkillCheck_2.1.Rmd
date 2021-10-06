@@ -1,0 +1,137 @@
+---
+title: "SkillCheck 2.1 Present Graph Types"
+subtitle: "CPSC-292 Section 1"
+author: "Isaac Chrisman, Manou Crawford, Alexander Orlove, and Jessie Soliz"
+date: 10/5/2021
+output: html_notebook
+---
+# What data style links these geoms together
+These data styles are linked together by Linked together by R data styles of numeric(continuous) and characters(categorical)
+Numeric:c(1.3, 2.5, 2.4, 3)
+Characters:c(“One”, “Two”, “Tree”, “Orange”)
+
+# BAR 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+df <- data.frame(women$height, women$weight)
+df
+library(ggplot2)
+p <- ggplot(data=df,aes(x=women$height, y=women$weight, fill=supp)) + 
+  geom_bar(stat="identity", color="white", fill="lightblue")
+p
+```
+
+# Boxplot: 
+```{r}
+library(lattice)
+library(ggplot2)
+library(tidyr)
+data("CO2")
+ggplot(CO2, aes(x = Treatment, y = uptake, fill=Type)) + geom_boxplot()+xlab("Treatment")+ylab("Uptake")+ggtitle("Uptake vs Treatment")
+```
+# Additional Arguments of geom_boxplot
+1. mapping: Aesthetic mappings
+```{r}
+data("CO2")
+ggplot(CO2, mapping=aes(x = Treatment, y = uptake, fill=Type)) + geom_boxplot()+xlab("Treatment")+ylab("Uptake")+ggtitle("Uptake vs Treatment")#mapping=aes
+```
+
+2. data: Data that is to be displayed in the layer(either NULL which is default where data is inherited from the plot data, data.frame or another object that will override the plot data, or a function with a single argument as the plot data)
+```{r}
+data("CO2")
+ggplot(data=CO2, aes(x = Treatment, y = uptake, fill=Type)) + geom_boxplot()+xlab("Treatment")+ylab("Uptake")+ggtitle("Uptake vs Treatment")#data=CO2
+```
+
+3. position: Adjusts the position
+```{r}
+data("CO2")
+ggplot(CO2, aes(x = Treatment, y = uptake, fill=Type)) + geom_boxplot()+xlab("Treatment")+ylab("Uptake")+ggtitle("Uptake vs Treatment")+geom_point(position=)
+```
+
+4. outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha: Changes the aesthetics for outliers
+```{r}
+data("CO2")
+ggplot(CO2, aes(x = Treatment, y = uptake, fill=Type)) + geom_boxplot(outlier.color=("red"))+xlab("Treatment")+ylab("Uptake")+ggtitle("Uptake vs Treatment")#outlier.color=("red")
+```
+
+5. notch: If set to true will make a notched box plot to compare groups
+```{r}
+data("CO2")
+ggplot(CO2, aes(x = Treatment, y = uptake)) + geom_boxplot(notch=TRUE)+xlab("Treatment")+ylab("Uptake")+ggtitle("Uptake vs Treatment")#geom_boxplot(notch=TRUE)
+```
+
+6. notchwidth: For a notched box plot sets the width of the body
+```{r}
+data("CO2")
+ggplot(CO2, aes(x = Treatment, y = uptake)) + geom_boxplot(notch=TRUE,notchwidth=0.1)+xlab("Treatment")+ylab("Uptake")+ggtitle("Uptake vs Treatment")#notchwidth=0.1
+```
+
+7. varwidth: If true, set widths proportional to the square roots of the number of observations in the group
+```{r}
+data("CO2")
+ggplot(CO2, aes(x = Treatment, y = uptake)) + geom_boxplot(varwidth=TRUE)+xlab("Treatment")+ylab("Uptake")+ggtitle("Uptake vs Treatment")#vardiwth=TRUE
+```
+
+8. na.rm: Silently removes the missing values if set to true
+```{r}
+data("CO2")
+ggplot(CO2, aes(x = Treatment, y = uptake, fill=Type)) + geom_boxplot(na.rm=TRUE)+xlab("Treatment")+ylab("Uptake")+ggtitle("Uptake vs Treatment")#na.r=TRUE. No NA so doesn't do anything
+```
+
+9. orientation: Orientation of the layer
+```{r}
+data("CO2")
+ggplot(CO2, aes(x = Treatment, y = uptake, fill=Type)) + geom_boxplot()+xlab("Treatment")+ylab("Uptake")+ggtitle("Uptake vs Treatment")+geom_line(orientation="x")#geom_line(orientation="x")
+```
+
+10. show.legend: Decide if layer should be included in the legends
+```{r}
+data("CO2")
+ggplot(CO2, aes(x = Treatment, y = uptake, fill=Type)) + geom_boxplot(show.legend=FALSE)+xlab("Treatment")+ylab("Uptake")+ggtitle("Uptake vs Treatment")#show.legend=FALSE
+```
+
+11. inherit.aes: If False it will override the default aesthetics and not combine with them
+```{r}
+data("CO2")
+ggplot(CO2, aes(x = Treatment, y = uptake, fill=Type,inherit.aes=FALSE)) + geom_boxplot()+xlab("Treatment")+ylab("Uptake")+ggtitle("Uptake vs Treatment")
+```
+
+12: coef: Length of the whiskers as multiple IQR. Default is 1.5
+```{r}
+data("CO2")
+ggplot(CO2, aes(x = Treatment, y = uptake, fill=Type)) + geom_boxplot(coef=5)+xlab("Treatment")+ylab("Uptake")+ggtitle("Uptake vs Treatment")
+```
+
+# VIOLIN
+```{r}
+data(Orange)
+
+library(ggplot2)
+
+Orange$age = as.numeric(Orange$age)
+# numeric data here
+Orange$circumference = as.numeric(Orange$circumference)
+# numeric data here
+Orange$Tree = factor(Orange$Tree, levels = c("1","2","3","4","5"))
+# factor the categorical data
+
+p = ggplot(Orange, aes(Tree, circumference))+
+  geom_violin(aes(fill = Tree))+
+  geom_boxplot(width = .1)+
+  labs(title = "Orange Trees")
+p
+```
+
+Here we can even put a boxplot inside of the violin plot to provide the viewer with even more information.
+Additionally, we can title it  using labs
+In this version, I placed aesthetics within both the violin plot and its "sub" boxplot.
+This is essentially a good density plot if there is a lot of different categories, because in a density plot, those would all be overlaid and would be very difficult to see.
+
+#Resources
+Bar graph: http://www.sthda.com/english/wiki/ggplot2-barplots-quick-start-guide-r-software-and-data-visualization
+Violin: https://ggplot2.tidyverse.org/reference/geom_violin.html  
+Boxplot: http://www.sthda.com/english/wiki/ggplot2-box-plot-quick-start-guide-r-software-and-data-visualization
+
