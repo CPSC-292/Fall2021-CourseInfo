@@ -1,0 +1,43 @@
+---
+title: "SkillCheck#2.1 - Group 4 - geom_maps()"
+course: CPSC 292 - Section 01
+authors: Sarah, Spencer, David
+date: 10/08/2021
+output: html_document
+---
+
+```{r setup, include=TRUE}
+library(ggplot2)
+# install.packages("maps")
+library(maps)  #required for state map data
+# install.packages("mapproj")
+library(mapproj)
+library(dplyr) # required for arrange()
+library(viridis)
+```
+
+```{r, inlcude=TRUE}
+states_map <- map_data("state") # extracts data from the states map
+
+# Make a data set of US crime data using the USArrests data set 
+
+data("USArrests")
+USArrests$region <- row.names(USArrests)
+
+crimes <- data.frame(state = tolower(rownames(USArrests)), 
+                     USArrests)
+crime_map <- merge(states_map, crimes, by.x = "region", by.y = "state")
+crime_map <- arrange(crime_map, group, order)
+head(crime_map)
+
+#Plot murder rate on the map
+
+basemap <- ggplot(crime_map, aes(x=long, y=lat, group=group, fill=Murder)) + 
+  geom_polygon() + coord_map("polyconic")
+
+basemap
+
+```
+
+
+
