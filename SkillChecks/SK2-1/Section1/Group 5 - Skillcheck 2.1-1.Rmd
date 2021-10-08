@@ -1,6 +1,6 @@
 ---
-Tyler, Mo, Clara [Sec1]
 title: "2.1 Skillcheck"
+author: Tyler, Mo, Clara [Sec1]
 output: html_document
 ---
 ```{r}
@@ -17,6 +17,22 @@ library(reshape2)
 ```{r}
 #RASTER
 
+# How to transform data according to pivot_longer()
+data("volcano")
+volcano <- data.frame(x = seq(1:nrow(volcano)), data.frame(volcano))
+volcano.long <- pivot_longer(volcano, cols=!x, 
+                             names_to = "y", names_prefix = "X", 
+                             values_to = "elevation", 
+                             names_transform = list(x = as.numeric,
+                                                    y = as.numeric))
+ggplot(volcano.long, aes(x, y)) +
+  geom_raster(aes(fill = elevation)) + scale_fill_viridis_c()
+```
+
+```{r}
+# Transform data using melt() in reshape2
+
+data("volcano")
 volcano_df <- melt(volcano)
 colnames(volcano_df) <- c("lattitude", "longitude", "elevation")
 
