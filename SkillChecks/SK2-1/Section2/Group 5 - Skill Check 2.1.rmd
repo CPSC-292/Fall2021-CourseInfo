@@ -1,0 +1,94 @@
+---
+title: "Skill Check 2.1"
+author: "Bailey Kielb"
+date: "10/6/2021"
+output: html_document
+---
+
+## Bailey Kielb
+## Install ggplot2
+```{r setup, include=FALSE}
+install.packages("ggplot2")
+library(ggplot2)
+library(tidyr)
+
+```
+
+## Faithfuld Data Set and Plot
+```{r}
+data("faithfuld")
+
+
+ggplot(faithfuld, aes(x=waiting, y= eruptions, z=density)) +
+  geom_contour_filled(show.legend = TRUE) +
+  labs( x = "time between eruptions", y= "number of eruptions", title =  "Faithfuld Eruption Density")
+
+```
+
+## Unfilled geom_contour
+``` {r}
+
+ggplot(faithfuld, aes(x=waiting, y= eruptions, z=density)) +
+  geom_contour(color = "green") +
+  labs( x = "time between eruptions", y= "number of eruptions")
+
+```
+
+## Differing Bins
+``` {r}
+
+ggplot(faithfuld, aes(x=waiting, y= eruptions, z=density)) +
+  geom_contour_filled(show.legend = TRUE, bins = 3) +
+  labs( x = "time between eruptions", y= "number of eruptions", title =  "Faithfuld Eruption Density")
+
+ggplot(faithfuld, aes(x=waiting, y= eruptions, z=density)) +
+  geom_contour_filled(show.legend = TRUE, bins = 10) +
+  labs( x = "time between eruptions", y= "number of eruptions", title =  "Faithfuld Eruption Density")
+
+ggplot(faithfuld, aes(x=waiting, y= eruptions, z=density)) +
+  geom_contour_filled(show.legend = TRUE, bins = 40) +
+  labs( x = "time between eruptions", y= "number of eruptions", title =  "Faithfuld Eruption Density")
+
+```
+
+## Daniel Huang
+#-----------Loading Data and GeomRaster----------
+```{r}
+library(lattice)
+library(ggplot2)
+library(tidyr)
+```
+
+```{r}
+data("faithfuld")
+faithfuld
+```
+
+```{r}
+ggplot(faithfuld, aes(waiting, eruptions)) +
+  #X and Y values + Data
+ geom_raster(aes(fill = density), interpolate = TRUE) + 
+#Specific Raster Customization - fill = what to sort by, Interpolate = smoothing
+ scale_fill_viridis_c() +
+#color
+    labs (x = "time", y = "number of eruptions", title = "distribution of volcano data")
+#labels
+
+```
+
+## Max Lee
+```{r}
+library(ggplot2)
+
+x <- rep(c(2, 5, 7, 9, 12), 2)
+y <- rep(c(1, 2), each = 5)
+z <- factor(rep(1:5, each = 2))
+  df <- data.frame(x, y, z)
+```
+
+> Creating our geom_tile plot using ggplot
+
+```{r}
+ggplot(df,aes(x,y)) + geom_tile(aes(fill = z), colour = "grey50")
+
+```

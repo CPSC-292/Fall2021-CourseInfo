@@ -1,0 +1,126 @@
+---
+title: "CPSCSKILLCHECK2, GROUP4, geom_map"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+#geom_map
+
+#Example 1: Adding Color to a map
+
+#Start by loading the world map
+#TIPS: there are hidden packages sometimes, so if the code isn't working, make sure to check if you have all of the libraries installed
+
+#VERY IMPORATNT: instal PACKAGES FIRST rnaturalearthdata, rnaturalearth, ggplot2, maps
+
+#Create the map!
+
+```{r}
+library("ggplot2")
+theme_set(theme_bw())
+library("sf")
+world <-ne_countries(scale = "medium", returnclass = "sf")
+class(world)
+ggplot(data=world) +
+  geom_sf()
+```
+
+#Add axis labels, title and subtitle
+
+```{r}
+ggplot(data = world) +
+    geom_sf() +
+    xlab("Longitude") + ylab("Latitude") +
+    ggtitle("World map", subtitle = paste0("(", length(unique(world$NAME)), " countries)"))
+```
+#Adding color to the map
+
+```{r}
+ggplot(data = world) +
+    geom_sf() +
+    xlab("Longitude") + ylab("Latitude") +
+    ggtitle("World map", subtitle = paste0("(", length(unique(world$NAME)), " countries)")) +
+    geom_sf(color = "yellow", fill = "purple")
+```
+#EXAMPLE 2: PLOTTING EARTHQUAKES
+
+```{r}
+#load libraries 
+
+library("ggplot2")
+library("rnaturalearth")
+library("sf")
+
+world<-ne_countries(scale="medium", returnclass="sf")
+basefiji<-ggplot(data=world)+geom_sf()+xlab("Latitude") +ylab("Longitude")+
+  coord_sf(xlim=c(165,180),ylim=c(-35,-10), expand=TRUE)
+data("quakes")
+basefiji+geom_point(data=quakes,
+                    mapping=aes(x=long,y=lat,
+                                color=mag),
+                    alpha=0.50)
+```
+#yay! wonderful map!
+
+#EXAMPLE 3: POPULATION
+
+```{r}
+#Load the libraries
+
+library("ggplot2")
+library("rnaturalearth")
+library("sf")
+
+world<-ne_countries(scale="medium",returnclass="sf")
+
+basefiji<-ggplot(data=world)+geom_sf()+xlab("latitude")+ylab("Longtitude")+
+  ggtitle("Fiji")+ ggtitle("Figi Population")
+  coord_sf(xlim=c(165,180),ylim=c(-35,-10),expand=TRUE)
+
+basefiji+geom_sf(aes(fill=pop_est))+scale_fill_viridis_c(option="plasma",
+                                                         trans="sqrt")+coord_sf(xlim=c(165,180),ylim=c(-35,-10), expand= TRUE)
+```
+#Great! Almost there! One more example
+
+#EXAMPLE 4:CITY NAMES
+```{r}
+#Load the libraries
+
+library("ggplot2")
+library("rnaturalearth")
+library("sf")
+library("rnaturalearthdata")
+
+world<-ne_countries(scale="medium",returnclass="sf")
+
+ggplot(data=world)+
+  geom_sf()+
+  coord_sf(xlim=c(175,180), ylim=c(-20,-12,0), expand=TRUE)
+
+#load some more libraries
+
+library("ggplot2")
+library("rnaturalearth")
+library("sf")
+library("maps")
+
+world<-ne_countries(scale="medium",returnclass="sf")
+
+basefiji<-ggplot(data=world)+geom_sf()+xlab("latitude")+ylab("Longitude")+ggtitle("Figi Cities")+coord_sf(xlim=c(165,180),ylim=c(-35,-10),expand=TRUE)
+
+data("world.cities")
+basefiji+geom_text(data=world.cities,
+                   mapping=aes(x=long,y=lat,label=name),
+                   color="hotpink",frontface="plain",check_overlap=TRUE)
+```

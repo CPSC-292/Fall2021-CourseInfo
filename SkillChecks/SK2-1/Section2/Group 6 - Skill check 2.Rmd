@@ -1,0 +1,94 @@
+#Skill Check 2.1
+###Hannah Campbell, Warner Rhodes, Amy Portillo-Ramirez
+#### Section 2, Group 6
+output: ioslides_presentation
+** Note: install.packages wasn't working for gganimate and gifski, so we went to the "packages" tab, clicked install, and manually searched for it in CRAN
+
+```{r}
+library(ggplot2)
+install.packages("gganimate")
+library(gganimate)
+install.packages("gifski")
+library(gifski)
+
+data(mtcars)
+(ggplot(mtcars, aes(x= factor(cyl), y=mpg)) + geom_boxplot()) -> car
+car
+```
+
+We have a graph of mpg vs # of cylinders
+
+We want to transition between 3 different graphs of this data, broken up by each the 3 "gear" types. What does this information look like/ how does it change between each gear type?
+
+We map this 3rd variable to time with transition_states function.
+
+In that function, put in arguments for data, transition_length, state_length (the last 2 take numbers that represent a ratio of how long it transitions between 2 of the graphs, and  how long it rests on 1 graph, respectively.)
+
+```{r}
+
+library(ggplot2)
+install.packages("gganimate")
+library(gganimate)
+install.packages("gifski")
+library(gifski)
+
+data(mtcars)
+ggplot(mtcars, aes(x= factor(cyl), y=mpg)) + geom_boxplot(col='darkblue') + labs(x='Cylinder number', y='mpg', title= 'Mpg vs. Cylinder number according to gear') -> car
+        
+
+car+
+        transition_states(factor(gear), transition_length=1, state_length=6) 
+
+car+
+        transition_states(factor(gear), transition_length=6, state_length=1) -> car
+
+car
+```
+
+For the graphs where one of the boxes disappears, say we wanted to make it fade in when it appears, but shrink away when it disappears. We can do this with enter_fade and exit_shrink.
+
+There are various other enter_* / exit_* arguments that control how we can make it appear and disappear
+
+```{r}
+car + enter_fade() + exit_shrink()
+```
+
+Say we want to control the ease between transitions: we can do this with ease_aes()
+
+The default is linear (transitions move at a constant speed from one graph to the next), but we can set to be quadratic, sine, circular, exponential, elastic, back, bounce
+
+Almost like controlling the acceleration of the graphic
+
+Add an -in modifier to apply as-is. Add an -out modifier to apply in reverse. Add -in-out modifier to apply it like a mirror image.
+
+```{r}
+car+ ease_aes("exponential-out")
+car+ ease_aes("exponential-in")
+car+ ease_aes("elastic-in-out")
+```
+
+```{r setup, include=FALSE}
+library(gganimate)
+library(gapminder)
+
+ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
+  geom_point(alpha = 0.7, show.legend = FALSE) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  facet_wrap(~continent) +
+  # Specific Bits
+  labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +
+  transition_time(year) +
+  ease_aes('linear')
+```
+-ggplot tells the computer that the data (gapminder) wants to be plotted by us. 
+# Types of Geom Used
+-geom_point: Used to create the scatter plot in the given data 
+# Specific Bits added
+## aes
+-GDP per capita as x-axis, life expetency is y-axis, our size of dot is a representation of population, each different color dot on the data is a different country.
+-Facet_wrap: categorizes the countries into their corresponding continents
+-Scale_colour_manual: 
+-Scale_size(range=c()): Codes for how many data points are for each country
+-Scale_x_log10(): Data number is placed into this code and then it computes it onto the graph. 
