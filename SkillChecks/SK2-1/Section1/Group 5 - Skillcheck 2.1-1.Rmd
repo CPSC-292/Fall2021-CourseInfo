@@ -1,0 +1,58 @@
+---
+Tyler, Mo, Clara [Sec1]
+title: "2.1 Skillcheck"
+output: html_document
+---
+```{r}
+library(tidyr)
+library(tidyverse)
+library(janitor)
+library(readxl)
+library(ggplot2)
+library(viridis)
+library(viridisLite)
+library(reshape2)
+```
+
+```{r}
+#RASTER
+
+volcano_df <- melt(volcano)
+colnames(volcano_df) <- c("lattitude", "longitude", "elevation")
+
+data=volcano_df
+ggplot(volcano_df, aes(lattitude, longitude)) +
+  geom_raster(aes(fill = elevation)) + scale_fill_viridis_c()
+
+
+```
+
+
+```{r}
+#TILE
+
+
+volcano_df <- melt(volcano)
+colnames(volcano_df) <- c("lattitude", "longitude", "elevation")
+
+data=volcano_df
+ggplot(volcano_df, aes(lattitude, longitude)) +
+  geom_tile(aes(fill = elevation)) + scale_fill_viridis_c()
+
+
+```
+
+```{r}
+#contour
+#note, reshape2 and ggplot2 libraries open above
+
+volcano_df <- melt(volcano)
+
+colnames(volcano_df) <- c("Lattitude", "Longitude", "Elevation")
+
+ggplot(volcano_df, aes(Lattitude,Longitude)) +
+  
+    geom_contour(aes(z=Elevation, col = ..level..)) 
+
+```
+

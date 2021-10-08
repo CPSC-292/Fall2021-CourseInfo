@@ -1,0 +1,129 @@
+---
+title: "Skill Check 2, gganimate"
+author: "Todd Soo, Nathan Mermilliod, Annie Kelly"
+date: "10/4/2021"
+output: html_document
+---
+
+gganimate
+
+gganimate allows the user to expand their range of graphics from ggplot2 by allowing them to include animations. This can be added to the plot to demonstrate how data can change with time.
+
+There are 5 new commands given by gganimate:
+
+transition*() : defines how the data should be spread out and relates across  time
+
+view_*() : defines how the positional scales should change along the animation
+
+shadow_*(): defines how the data from other points in time should be presented as time passes
+
+enter_*()/exit_*() : defines how new data should appear and how old data should disappear over the animation
+
+ease_aes() : defines how different aesthetics should be eased over the animation.
+
+-----------------------------------------------------------------------------------
+
+Depending on the plot, gganimate inputs and outputs different classes of data.
+It works by loading a series of .png's and then those are loaded into a gif.
+
+The data sets we have used before work with gganimate. mtcars can be used to generate animated box plots, iris can be used to generate animated scatter plots, and gapminder can be used to map GDP and life expectancy
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#add what classes of data it is
+
+library(ggplot2)
+library(gganimate)
+library(gifski)
+
+#static plot
+
+plot1 <- ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) + 
+  geom_point()
+
+plot1
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#Now using gganimate...
+
+anim <- ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) + 
+  geom_point(aes(colour = Species, group = 1L)) + #adding some color...
+  transition_states(Species,
+                    transition_length = 2, #this changes the length of the transition in seconds
+                    state_length = 1) #this changes how long the plot stays still between transitions
+anim +
+  ease_aes('cubic-in-out') #this makes the plot have smoother transitions
+
+
+# Animated GIF - This code is necessary to load the gif. The prior code generates .png files.
+animate(anim, renderer =  gifski_renderer())
+anim_save(last_animation(), filename = "plot1.gif")
+
+anim
+
+```
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#another option to animate using fade and shrink
+
+anim <- ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) + 
+  geom_point(aes(colour = Species), size = 2) + 
+  transition_states(Species,
+                    transition_length = 2,
+                    state_length = 1) +
+ 
+  enter_fade() + #this causes the code to enter from a fade
+  exit_shrink() #this causes the code the exit by shrinking out of the plot
+  ease_aes('cubic-in-out') #this makes the plot have smoother transitions
+
+animate(anim, renderer =  gifski_renderer())
+anim_save(last_animation(), filename = "plot1.gif")
+
+anim
+
+
+```
+
+
+
+Here is another example using gapminder, showing how gganimate can make useful and information plots showing data over time.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(gapminder)
+library(ggplot2)
+library(gganimate)
+
+file_renderer(dir = ".", prefix = "gganim_plot", overwrite = FALSE)
+data(gapminder)
+p <- ggplot(
+gapminder,
+aes(x = gdpPercap, y=lifeExp, size = pop, colour = country)
+) +
+geom_point(show.legend = FALSE, alpha = 0.7) +
+scale_color_viridis_d() +
+scale_size(range = c(2, 12)) +
+scale_x_log10() +
+labs(x = "GDP per capita", y = "Life expectancy")
+p + transition_time(year)
+file_renderer(dir = ".", prefix = "gganim_plot", overwrite = FALSE)
+animate(p +transition_time(year), renderer =  gifski_renderer())
+anim_save(last_animation(), filename = "plot2.gif")
+
+#Different colors are continents and the graph shows change over time
+
+#this is taken from https://community.rstudio.com/t/warning-message-file-renderer-failed-to-copy-frames-to-the-destination-directory/45261/3
+
+#The User's name is technocrat
+
+#one advantage is make plots that are eye-catching because they are animated. When displayed against other plots people can look at it more bc it is moving as opposed to not moving
+```
+
+
