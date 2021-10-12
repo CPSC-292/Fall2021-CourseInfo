@@ -5,15 +5,12 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library("ggplot2")
+library("rnaturalearth")
+library("sf")
+library("rnaturalearthdata")
+library("maps")
 ```
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 #geom_map
 
@@ -27,9 +24,9 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 #Create the map!
 
 ```{r}
-library("ggplot2")
+
 theme_set(theme_bw())
-library("sf")
+
 world <-ne_countries(scale = "medium", returnclass = "sf")
 class(world)
 ggplot(data=world) +
@@ -56,12 +53,6 @@ ggplot(data = world) +
 #EXAMPLE 2: PLOTTING EARTHQUAKES
 
 ```{r}
-#load libraries 
-
-library("ggplot2")
-library("rnaturalearth")
-library("sf")
-
 world<-ne_countries(scale="medium", returnclass="sf")
 basefiji<-ggplot(data=world)+geom_sf()+xlab("Latitude") +ylab("Longitude")+
   coord_sf(xlim=c(165,180),ylim=c(-35,-10), expand=TRUE)
@@ -76,12 +67,6 @@ basefiji+geom_point(data=quakes,
 #EXAMPLE 3: POPULATION
 
 ```{r}
-#Load the libraries
-
-library("ggplot2")
-library("rnaturalearth")
-library("sf")
-
 world<-ne_countries(scale="medium",returnclass="sf")
 
 basefiji<-ggplot(data=world)+geom_sf()+xlab("latitude")+ylab("Longtitude")+
@@ -94,26 +79,22 @@ basefiji+geom_sf(aes(fill=pop_est))+scale_fill_viridis_c(option="plasma",
 #Great! Almost there! One more example
 
 #EXAMPLE 4:CITY NAMES
-```{r}
-#Load the libraries
+This method uses Longitude and Latitude to locate the different cities within a selected region
+Able to take a small section of a large data set (world) and only find the map of a certain country and add city names to to the map. 
+Able to use names of the city using world.cities data set
+Located in the maps package
+Labeled this as names
+For city names 
+Make sure check_overlap is TRUE 
+If not, all the cities will be overlapping each other, making it impossible to read
 
-library("ggplot2")
-library("rnaturalearth")
-library("sf")
-library("rnaturalearthdata")
+```{r}
 
 world<-ne_countries(scale="medium",returnclass="sf")
 
 ggplot(data=world)+
   geom_sf()+
-  coord_sf(xlim=c(175,180), ylim=c(-20,-12,0), expand=TRUE)
-
-#load some more libraries
-
-library("ggplot2")
-library("rnaturalearth")
-library("sf")
-library("maps")
+  coord_sf(xlim=c(175,180), ylim=c(-20,-12), expand=TRUE)
 
 world<-ne_countries(scale="medium",returnclass="sf")
 

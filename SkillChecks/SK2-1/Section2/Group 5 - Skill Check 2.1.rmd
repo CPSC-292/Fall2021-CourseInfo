@@ -8,7 +8,7 @@ output: html_document
 ## Bailey Kielb
 ## Install ggplot2
 ```{r setup, include=FALSE}
-install.packages("ggplot2")
+#install.packages("ggplot2")
 library(ggplot2)
 library(tidyr)
 

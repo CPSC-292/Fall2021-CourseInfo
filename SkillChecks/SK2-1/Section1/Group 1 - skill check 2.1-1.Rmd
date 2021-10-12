@@ -2,10 +2,11 @@
 title: "skill check 2.1.Rmd"
 author: Rachelle, Azure, Camila, Brian
 date: October 6, 2021
-  output: html_document
+output: html_document
 ---
 ```{r}
-iris
+data(iris)
+library(ggplot2)
 ```
 download ggplot2 to access iris
 
@@ -28,7 +29,7 @@ ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, col=Species)) +
 library(lattice)
 data("iris")
 ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, col=Species)) +
-  geom_line(pch=0, size=1) + 
+  geom_line(size=1) + 
   xlab("Sepal.Length") + ylab("Sepal.Width")
 ```
 geom_line() makes line plots, which connects the points found in the ggplot above. 
@@ -36,7 +37,7 @@ geom_line() makes line plots, which connects the points found in the ggplot abov
 ```{r}
 data("iris")
 ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, col=Species)) +
-  geom_qq_line(aes(sample=Sepal.Width), pch=0, size=1) + 
+  geom_qq_line(aes(sample=Sepal.Width), size=1) + 
   xlab("Sepal.Length") + ylab("Sepal.Width")
 ```
 
@@ -45,7 +46,7 @@ data("iris")
 ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, col=Species)) +
   geom_point(pch=0, size=2) + 
   geom_line() +
-  geom_qq_line(aes(sample=Sepal.Width), pch=0, size=1) + 
+  geom_qq_line(aes(sample=Sepal.Width), size=1) + 
   xlab("Sepal.Length") + ylab("Sepal.Width")
 ```
 geom_qq_line() makes quantile-quantile plots. This helps you compare multiple probability distributions.

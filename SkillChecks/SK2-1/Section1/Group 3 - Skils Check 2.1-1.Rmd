@@ -1,0 +1,50 @@
+---
+title: "Skill check 2.1.Rmd"
+authors: Lou, Hannah, Gabby, Caroline
+date: 10/6/21
+output: html_document
+---
+
+
+#Histogram: Distribution of numerical data, Groups data of all the same type (carot) into groups, One can have one variable
+```{r setup, include=TRUE}
+#Histogram
+library(ggplot2)
+data(diamonds)
+ggplot(diamonds, aes(x=carat)) +geom_histogram(binwidth = 1)
+
+```
+```{r,include=TRUE}
+#Dot plot
+library(ggplot2)
+data("diamonds")
+ggplot(diamonds, aes(x=carat)) +geom_dotplot(binwidth =  0.1)
+```
+#Dotplot: shows how many of each carat type are present in the data, binwith bigger than .1 made dots really big and hard to see all data points, binwith smaller than .1 made it look like lines
+
+
+```{r, include=TRUE}
+#Density
+library(ggplot2)
+data("diamonds")
+ggplot(diamonds, aes(x=carat)) + geom_density(color="dark blue", fill= "light blue")
+
+```
+#representation of distribution of numerical values. It focuses on one continuous variable at a time so in this graph we chose carat It is kind of like the smoothed version of a histogram the peaks show where the values are concentrated
+
+#how they relate: all data distribution grphs, one continuous varibale, density plot is continious version of histogram, all measure quantities, take numeric data, data sets in long format
+
+#problems encountered: adjusting the binwith, we tried to set it up with two variables and realized that wouldn't work
+
+
+```{r cars}
+summary(cars)
+```
+
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
