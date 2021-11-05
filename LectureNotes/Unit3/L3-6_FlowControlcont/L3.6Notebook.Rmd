@@ -19,11 +19,7 @@ Use a nested loop to fill the empty `my.matrix` defined below. The first column 
 ```{r, include=TRUE}
 my.matrix <- matrix(rep(NA, 10*5), nrow = 10, ncol = 5)
 
-for(j in 1:nrow(my.matrix)){
-        for(k in 1:ncol(my.matrix)){
-                my.matrix[j, k] <- k*j
-        }
-}
+
 ```
 
 ### Question 2 
