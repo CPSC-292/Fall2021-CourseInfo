@@ -1,0 +1,86 @@
+---
+title: "Lecture 3.8 Notebook"
+author: "Lindsay Waldrop"
+date: "11/10/2021"
+output: html_notebook
+---
+
+
+## 3.8 Refactoring
+ 
+Refactoring is the process by which code is restructured without changing what the code produces. It can do many things, including improve readability and reduce complexity, make cleaner code that is easier to understand, can help fix bugs and other problems, and often makes code more compact and versatile.
+
+Refactoring code is like editing a paper. You’re not really changing what the paper says, but making in clearer and easier to understand!
+
+### Refactoring Example 1: variable names
+
+Code to start: 
+```{r, include=TRUE}
+dothing<-function(x1,x2,x3)
+  {a1=max(grad1,na.rm=TRUE)
+  a2=max(grad2,na.rm=TRUE)
+  a3=max(grad3,na.rm=TRUE)
+  a4=max(c(a1,a2,a3),na.rm=TRUE)
+  return(a4)}
+```
+
+Refactoring goals: 
+
+ 1. Make variable names more meaningful
+ 2. Conform variable names to style guide. 
+
+Refactored code: 
+```{r, include=TRUE}
+
+
+```
+
+### Refactoring Example 2: improving readability
+
+Start with code from above chunk (results of example 1).
+
+Refactoring goals: 
+
+ 1. Improve syntax by adding spaces
+ 2. Conform braces and brackets to style guide. 
+ 
+Refactored code: 
+```{r, include=TRUE}
+
+
+```
+
+### Example 3: commenting to change behavior
+
+Code to start: 
+```{r, include=TRUE}
+register.backend <- function(copl) {
+  require(parallel)
+  co <- detectCores()
+  ## Windows: 
+  #cluster <- makePSOCKcluster(copl)
+  ## Mac or Linux: 
+  registerDoParallel(cores = copl)
+}
+```
+
+Goals of refactoring: 
+
+ 1. Add a conditional to handle Windows/Mac switch. 
+ 
+Refactored code: 
+```{r, include=TRUE}
+
+
+```
+
+
+
+### Check Your Understanding
+
+Refactor the code in the lecture notebook so that it conforms to the style guide.
+
+```{r, include=TRUE}
+library(ggplot2)
+ggplot(ToothGrowth,aes(x=factor(dose),y=len))+geom_boxplot(aes(fill=supp),position="dodge2")+scale_fill_manual(values=c("black","red"))+xlab("Dose")+ylab("Tooth Length")+ggtitle("Tooth length versus dose")+theme_minimal()
+```
