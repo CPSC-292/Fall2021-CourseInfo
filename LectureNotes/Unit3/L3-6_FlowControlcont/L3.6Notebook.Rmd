@@ -19,15 +19,7 @@ Use a nested loop to fill the empty `my.matrix` defined below. The first column 
 ```{r, include=TRUE}
 my.matrix <- matrix(rep(NA, 10*5), nrow = 10, ncol = 5)
 
-my.matrix[,1] <- seq(1,10)
-my.matrix[,2] <- seq(1,10)*2
-my.matrix[,3] <- seq(1,10)*3
 
-for (column in 1:5) { #outer
-        for (row in 1:10) { # inner
-                my.matrix[row,column] <- row*column
-        }
-}
 
 ```
 
@@ -47,23 +39,6 @@ Use the function in a loop to convert `colors2numbers` below into numbers. Then 
 ```{r, include=TRUE}
 
 colors2numbers <- c("red", "yellow", "orange", "blue", "blue", "white", "magenta")
-
-colortest <- function(color.in){
-        a <- switch(color.in,
-          "red" = 1, 
-          "blue" = 2,
-           "white" = 3,
-           "yellow" = 4,
-         "green" = 5,
-          6
-        )
-        return(a)
-}
-
-numbersfromcolors <- rep(NA, length(colors2numbers))
-for(k in 1:length(colors2numbers)){
-        numbersfromcolors[k] <- colortest(colors2numbers[k])
-}
 
 
 
@@ -103,8 +78,8 @@ In the `ChickWeight` data set, the weights of 50 chicks fed four different diets
 ```{r, include=TRUE}
 data("ChickWeight")
 
-```
 
+```
 
 
 

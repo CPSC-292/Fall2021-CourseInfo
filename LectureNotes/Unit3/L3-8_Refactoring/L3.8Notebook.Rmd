@@ -31,8 +31,12 @@ Refactoring goals:
 
 Refactored code: 
 ```{r, include=TRUE}
-
-
+find_max_grad<-function(grad_x,grad_y,grad_z)
+  {max_x=max(grad_x,na.rm=TRUE)
+  max_y=max(grad_y,na.rm=TRUE)
+  max_z=max(grad_z,na.rm=TRUE)
+  max_max=max(c(max_x,max_y,max_z),na.rm=TRUE)
+  return(max_max)}
 ```
 
 ### Refactoring Example 2: improving readability
@@ -46,8 +50,13 @@ Refactoring goals:
  
 Refactored code: 
 ```{r, include=TRUE}
-
-
+find_max_grad <- function(grad_x, grad_y, grad_z){
+  max_x <- max(grad_x, na.rm = TRUE)
+  max_y <- max(grad_y, na.rm = TRUE)
+  max_z <- max(grad_z, na.rm = TRUE)
+  max_max <- max(c(max_x, max_y, max_z), na.rm = TRUE)
+  return(max_max)
+}
 ```
 
 ### Example 3: commenting to change behavior
